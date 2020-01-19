@@ -1,15 +1,43 @@
 package com.ris.ris.project.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-public class Bid {
-    //TODO add currency...?
+//TODO add currency...?
+
+@Entity
+public class Bid implements Comparable<Bid>{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long bidID;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "auctionID")
     private Auction auction;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userID")
     private User bidder;
+
+    @Column(nullable = false)
     private float amount;
+
     private LocalDateTime bidDateTime;
 
     public Bid() {
+    }
+
+    @Override
+    public int compareTo(Bid other) {
+        return Double.compare(this.amount, other.getAmount());
+    }
+
+    public Long getBidID() {
+        return bidID;
+    }
+
+    public void setBidID(Long bidID) {
+        this.bidID = bidID;
     }
 
     public Auction getAuction() {

@@ -1,12 +1,36 @@
 package com.ris.ris.project.model;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
 //This is probably a NO-NO, but I hope it will do for now...
+@Entity
 public class Message {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
     private User sender;
+
+    @ManyToOne
     private User receiver;
+
+    @Lob
+    @Column(columnDefinition = "CLOB")
     private String message;
 
+    private LocalDateTime dateTimeOfMessageSent;
+
     public Message() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getSender() {
@@ -31,5 +55,13 @@ public class Message {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public LocalDateTime getDateTimeOfMessageSent() {
+        return dateTimeOfMessageSent;
+    }
+
+    public void setDateTimeOfMessageSent(LocalDateTime dateTimeOfMessageSent) {
+        this.dateTimeOfMessageSent = dateTimeOfMessageSent;
     }
 }

@@ -1,24 +1,78 @@
 package com.ris.ris.project.model;
 
+import org.springframework.core.annotation.Order;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.SortedSet;
 
+@Entity
 public class Auction {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long auctionID;
+
     private String title;
+
+    @Lob
+    @Column(columnDefinition = "CLOB")
     private String description;
+
     private LocalDateTime dateTimeOfAuctionStart;
     private LocalDateTime dateTimeOfAuctionEnd;
+
+    @Lob
+    @Column(columnDefinition = "BLOB")
     private Byte[] imageA;
+
+    @Lob
+    @Column(columnDefinition = "BLOB")
     private Byte[] imageB;
+
+    @Lob
+    @Column(columnDefinition = "BLOB")
     private Byte[] imageC;
 
-    private User seller;
-    private User buyer;
+    @Enumerated(value = EnumType.STRING)
+    private AuctionState auctionState;
+
+    @Enumerated(value = EnumType.STRING)
     private Categories category;
-    private Bid currentMaxBidder;
-    private List<Bid> bidders;
+
+    @ManyToOne
+    @JoinColumn(name = "userID")
+    private User seller;
+
+    @ManyToOne
+    private User buyer;
+
+    private float initialPrice;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction", targetEntity = Bid.class)
+    @OrderBy("amount")
+    private SortedSet<Bid> bidders;
+
+    @OneToOne
+    private Feedback feedbackForAuction;
 
     public Auction() {
+    }
+
+    public Long getAuctionID() {
+        return auctionID;
+    }
+
+    public void setAuctionID(Long auctionID) {
+        this.auctionID = auctionID;
+    }
+
+    public AuctionState getAuctionState() {
+        return auctionState;
+    }
+
+    public void setAuctionState(AuctionState auctionState) {
+        this.auctionState = auctionState;
     }
 
     public String getTitle() {
@@ -101,19 +155,27 @@ public class Auction {
         this.category = category;
     }
 
-    public Bid getCurrentMaxBidder() {
-        return currentMaxBidder;
-    }
-
-    public void setCurrentMaxBidder(Bid currentMaxBidder) {
-        this.currentMaxBidder = currentMaxBidder;
-    }
-
-    public List<Bid> getBidders() {
+    public SortedSet<Bid> getBidders() {
         return bidders;
     }
 
-    public void setBidders(List<Bid> bidders) {
+    public void setBidders(SortedSet<Bid> bidders) {
         this.bidders = bidders;
+    }
+
+    public float getInitialPrice() {
+        return initialPrice;
+    }
+
+    public void setInitialPrice(float initalPrice) {
+        this.initialPrice = initalPrice;
+    }
+
+    public Feedback getFeedbackForAuction() {
+        return feedbackForAuction;
+    }
+
+    public void setFeedbackForAuction(Feedback feedbackForAuction) {
+        this.feedbackForAuction = feedbackForAuction;
     }
 }

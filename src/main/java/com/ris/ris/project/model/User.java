@@ -1,24 +1,63 @@
 package com.ris.ris.project.model;
 
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Entity
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userID;
+
     private String firstName;
     private String lastName;
+
+    /*If we delete the user, we also want to delete his address*/
+    /*Unidirectional link to address*/
+    @OneToOne()
     private Address address;
+
     private LocalDate dateOfBirth;
     private String phoneNumber;
     private LocalDate accountCreationDate;
     private String email;
     private String password;
+
+    @Lob
+    @Column(columnDefinition = "BLOB")
     private Byte[] profileImage;
 
-    private List<Auction> auctions;
-    private List<Feedback> feedbacks;
+    /*If we delete the user, we also want to delete his auctionsForSale*/
+    @OneToMany(mappedBy = "seller", targetEntity = Auction.class)
+    private List<Auction> auctionsForSale;
+
+    /*If we delete the user, we also want to delete his bought items*/
+    @OneToMany(mappedBy = "buyer", targetEntity = Auction.class)
+    private List<Auction> boughtItems;
+
+    /*If we delete the user, we also want to delete his feedbacks*/
+    @OneToMany(mappedBy = "seller", targetEntity = Feedback.class)
+    private List<Feedback> feedbacksAsSeller;
+
+    @OneToMany(mappedBy = "buyer", targetEntity = Feedback.class)
+    private List<Feedback> feedbacksAsBuyer;
+
+    @OneToMany(mappedBy = "bidder", targetEntity = Bid.class)
+    private List<Bid> usersBids;
+
+    //TODO Messages... :/
 
     public User() {
+    }
+
+    public Long getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Long userID) {
+        this.userID = userID;
     }
 
     public Address getAddress() {
@@ -45,20 +84,36 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Auction> getAuctions() {
-        return auctions;
+    public List<Auction> getAuctionsForSale() {
+        return auctionsForSale;
     }
 
-    public void setAuctions(List<Auction> auctions) {
-        this.auctions = auctions;
+    public void setAuctionsForSale(List<Auction> auctionsForSale) {
+        this.auctionsForSale = auctionsForSale;
     }
 
-    public List<Feedback> getFeedbacks() {
-        return feedbacks;
+    public List<Auction> getBoughtItems() {
+        return boughtItems;
     }
 
-    public void setFeedbacks(List<Feedback> feedbacks) {
-        this.feedbacks = feedbacks;
+    public void setBoughtItems(List<Auction> boughtItems) {
+        this.boughtItems = boughtItems;
+    }
+
+    public List<Feedback> getFeedbacksAsBuyer() {
+        return feedbacksAsBuyer;
+    }
+
+    public void setFeedbacksAsBuyer(List<Feedback> feedbacksAsBuyer) {
+        this.feedbacksAsBuyer = feedbacksAsBuyer;
+    }
+
+    public List<Feedback> getFeedbacksAsSeller() {
+        return feedbacksAsSeller;
+    }
+
+    public void setFeedbacksAsSeller(List<Feedback> feedbacksAsSeller) {
+        this.feedbacksAsSeller = feedbacksAsSeller;
     }
 
     public String getFirstName() {
@@ -85,14 +140,6 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public LocalDate getAcountCreationdDate() {
-        return accountCreationDate;
-    }
-
-    public void setAcountCreationdDate(LocalDate acountCreationdDate) {
-        this.accountCreationDate = acountCreationdDate;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -115,5 +162,13 @@ public class User {
 
     public void setProfileImage(Byte[] profileImage) {
         this.profileImage = profileImage;
+    }
+
+    public List<Bid> getUsersBids() {
+        return usersBids;
+    }
+
+    public void setUsersBids(List<Bid> usersBids) {
+        this.usersBids = usersBids;
     }
 }
