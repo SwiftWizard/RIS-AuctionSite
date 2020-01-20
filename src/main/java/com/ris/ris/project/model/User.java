@@ -2,6 +2,7 @@ package com.ris.ris.project.model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,7 +15,6 @@ public class User {
     private String firstName;
     private String lastName;
 
-    /*If we delete the user, we also want to delete his address*/
     /*Unidirectional link to address*/
     @OneToOne()
     private Address address;

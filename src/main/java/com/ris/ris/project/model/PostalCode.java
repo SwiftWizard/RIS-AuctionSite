@@ -7,11 +7,16 @@ import java.util.stream.Collectors;
 
 /*Note: first two characters of zip code should represent country by the "ISO Alpha-2" standard*/
 /*Enums require no JPA annotations*/
-public enum ZipCode {
-    RS11000, RS21000, RS24000;
+public enum PostalCode {
+    R1S1000,
+    RS21000,
+    RS24000,
+    HR10000,
+    HR20000,
+    HU1007;
 
-    public static List<ZipCode> getZipCodesFromCountry(String countryPrefix){
-        return Arrays.stream(ZipCode.values())
+    public static List<PostalCode> getZipCodesFromCountry(String countryPrefix){
+        return Arrays.stream(PostalCode.values())
                 .filter(z -> z.toString().startsWith(countryPrefix))
                 .collect(Collectors.toList());
     }

@@ -4,11 +4,11 @@ import javax.persistence.*;
 
 @Entity
 public class Feedback {
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long feedbackID;
 
-    @Enumerated(value = EnumType.STRING)//NOTE to self: Maybe change it to Ordinal?
+    @Enumerated(value = EnumType.STRING)
     private FeedbackGrade grade;
 
     /*We want to have more than 255 characters available to the user when writing a description*/

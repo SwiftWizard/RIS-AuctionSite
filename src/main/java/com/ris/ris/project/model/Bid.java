@@ -1,9 +1,9 @@
 package com.ris.ris.project.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-//TODO add currency...?
 
 @Entity
 public class Bid implements Comparable<Bid>{

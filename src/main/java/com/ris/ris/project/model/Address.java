@@ -13,7 +13,7 @@ public class Address {
     private Country country;
 
     @Enumerated(value = EnumType.STRING)
-    private ZipCode zipCode;
+    private PostalCode postalCode;
 
     private String city;
 
@@ -46,12 +46,12 @@ public class Address {
         this.city = city;
     }
 
-    public ZipCode getZipCode() {
-        return zipCode;
+    public PostalCode getPostalCode() {
+        return postalCode;
     }
 
-    public void setZipCode(ZipCode zipCode) {
-        this.zipCode = zipCode;
+    public void setPostalCode(PostalCode postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getAddress() {

@@ -3,12 +3,14 @@ package com.ris.ris.project.model;
 import org.springframework.core.annotation.Order;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.SortedSet;
 
 @Entity
 public class Auction {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long auctionID;
@@ -46,6 +48,9 @@ public class Auction {
 
     @ManyToOne
     private User buyer;
+
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
 
     private float initialPrice;
 
@@ -153,6 +158,14 @@ public class Auction {
 
     public void setCategory(Categories category) {
         this.category = category;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 
     public SortedSet<Bid> getBidders() {
