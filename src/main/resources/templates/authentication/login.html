@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center mb-5">Login</h2>
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card border-secondary">
+                        <div class="card-header">
+                            <h3 class="mb-0 my-2">Login</h3>
+                            <p class="mb-0 my-2 text-danger" th:if="${loginError != null}" th:text="${loginError}"></p>
+                        </div>
+                        <div class="card-body">
+                            <form class="form" role="form" autocomplete="off" method = "post">
+                                <div class="form-group">
+                                    <label for="username">Username / email</label>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Your username or email">
+                                </div>
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Your password">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success btn-lg float-right" value="Log in">
+                            <a href="/register/getCountriesAndPostalCodes" class="btn btn-warning btn-lg float-left">Register</a>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/row-->
+
+    </div>
+    <!--/col-->
+</div>
+<!--/row-->
+</div>
+<!--/container-->
+</body>
+</html>

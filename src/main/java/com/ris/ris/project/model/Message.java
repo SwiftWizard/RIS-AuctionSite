@@ -16,8 +16,7 @@ public class Message {
     @ManyToOne
     private User receiver;
 
-    @Lob
-    @Column(columnDefinition = "CLOB")
+
     private String message;
 
     private LocalDateTime dateTimeOfMessageSent;

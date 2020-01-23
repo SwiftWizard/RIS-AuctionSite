@@ -12,17 +12,19 @@ public class Feedback {
     private FeedbackGrade grade;
 
     /*We want to have more than 255 characters available to the user when writing a description*/
-    @Lob
-    @Column(columnDefinition = "CLOB")
+
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "seller_userID")
     private User seller;
 
     @ManyToOne
+    @JoinColumn(name = "buyer_userID")
     private User buyer;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "auction_auctionID")
     private Auction auction;
 
     public Feedback() {
@@ -35,6 +37,7 @@ public class Feedback {
     public void setFeedbackID(long feedbackID) {
         this.feedbackID = feedbackID;
     }
+
 
     public Auction getAuction() {
         return auction;

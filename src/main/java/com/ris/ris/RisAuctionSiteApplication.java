@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 
 import javax.persistence.Entity;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@SpringBootApplication()
 public class RisAuctionSiteApplication {
 
     public static void main(String[] args) {

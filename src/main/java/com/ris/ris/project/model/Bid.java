@@ -1,7 +1,6 @@
 package com.ris.ris.project.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
@@ -11,16 +10,16 @@ public class Bid implements Comparable<Bid>{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bidID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "auctionID")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "auction_auctionID")
     private Auction auction;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userID")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "bidder_userID")
     private User bidder;
 
     @Column(nullable = false)
-    private float amount;
+    private double amount;
 
     private LocalDateTime bidDateTime;
 
@@ -56,12 +55,13 @@ public class Bid implements Comparable<Bid>{
         this.bidder = bidder;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
-        this.amount = amount;
+    public void setAmount(double amount) {
+        String amountStr = String.format("%.2f", amount);
+        this.amount = Double.valueOf(amountStr);
     }
 
     public LocalDateTime getBidDateTime() {

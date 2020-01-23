@@ -1,12 +1,8 @@
 package com.ris.ris.project.model;
 
-import org.springframework.core.annotation.Order;
-
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.SortedSet;
+import java.util.*;
 
 @Entity
 public class Auction {
@@ -17,8 +13,6 @@ public class Auction {
 
     private String title;
 
-    @Lob
-    @Column(columnDefinition = "CLOB")
     private String description;
 
     private LocalDateTime dateTimeOfAuctionStart;
@@ -47,19 +41,24 @@ public class Auction {
     private User seller;
 
     @ManyToOne
+    @JoinColumn(name="buyer_userID")
     private User buyer;
 
     @Enumerated(EnumType.STRING)
     private Currency currency;
 
-    private float initialPrice;
+    private double initialPrice;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction", targetEntity = Bid.class)
+    @OneToMany(mappedBy = "auction", targetEntity = Bid.class)
     @OrderBy("amount")
-    private SortedSet<Bid> bidders;
+    private SortedSet<Bid> bidders = new TreeSet<>();
 
-    @OneToOne
-    private Feedback feedbackForAuction;
+    @OneToMany(mappedBy = "auction", targetEntity = Feedback.class)
+    private Set<Feedback> feedbacks = new HashSet<>();
+    /*
+      Explanation: For one Auction we have many (2) feedbacks,
+       one from sellerToBuyer and one from buyerToSeller
+    */
 
     public Auction() {
     }
@@ -70,14 +69,6 @@ public class Auction {
 
     public void setAuctionID(Long auctionID) {
         this.auctionID = auctionID;
-    }
-
-    public AuctionState getAuctionState() {
-        return auctionState;
-    }
-
-    public void setAuctionState(AuctionState auctionState) {
-        this.auctionState = auctionState;
     }
 
     public String getTitle() {
@@ -136,6 +127,22 @@ public class Auction {
         this.imageC = imageC;
     }
 
+    public AuctionState getAuctionState() {
+        return auctionState;
+    }
+
+    public void setAuctionState(AuctionState auctionState) {
+        this.auctionState = auctionState;
+    }
+
+    public Categories getCategory() {
+        return category;
+    }
+
+    public void setCategory(Categories category) {
+        this.category = category;
+    }
+
     public User getSeller() {
         return seller;
     }
@@ -150,14 +157,6 @@ public class Auction {
 
     public void setBuyer(User buyer) {
         this.buyer = buyer;
-    }
-
-    public Categories getCategory() {
-        return category;
-    }
-
-    public void setCategory(Categories category) {
-        this.category = category;
     }
 
     public Currency getCurrency() {
@@ -176,19 +175,32 @@ public class Auction {
         this.bidders = bidders;
     }
 
-    public float getInitialPrice() {
+    public Auction addBid(Bid bid){
+        this.bidders.add(bid);
+        bid.setAuction(this);
+        return this;
+    }
+
+    public Set<Feedback> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(Set<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
+    }
+
+    public Auction addFeedback(Feedback feedback){
+        this.feedbacks.add(feedback);
+        feedback.setAuction(this);
+        return this;
+    }
+
+    public void setInitialPrice(double initialPrice) {
+        String initialPriceStr = String.format("%.2f", initialPrice);
+        this.initialPrice = Double.valueOf(initialPriceStr);
+    }
+
+    public double getInitialPrice() {
         return initialPrice;
-    }
-
-    public void setInitialPrice(float initalPrice) {
-        this.initialPrice = initalPrice;
-    }
-
-    public Feedback getFeedbackForAuction() {
-        return feedbackForAuction;
-    }
-
-    public void setFeedbackForAuction(Feedback feedbackForAuction) {
-        this.feedbackForAuction = feedbackForAuction;
     }
 }

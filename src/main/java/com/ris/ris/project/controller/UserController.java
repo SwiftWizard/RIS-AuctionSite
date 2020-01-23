@@ -7,9 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("users")
 public class UserController {
     @Autowired
     UserRepository ur;
 
+    @RequestMapping("/userProfile")
+    public String userProfile(){
+        return "/users/userProfile";
+    }
 }
