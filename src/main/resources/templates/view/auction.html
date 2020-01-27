@@ -27,7 +27,7 @@
         <h2 class="text-center text-info font-weight-bold" th:text="${auction.title}">Auction name</h2>
         <div th:if="${auction.seller} != null"> <!--This field must exist-->
             <h5 class="text-center text-success" th:if="${not auction.bidders.isEmpty()}" th:text="|${auction.bidders.first().amount} ${auction.currency}|">Price</h5>
-            <p class="text-center text-success" th:text="|Initial price: ${auction.initialPrice}|"></p>
+            <p class="text-center text-success" th:text="|Initial price: ${auction.initialPrice} ${auction.currency}|"></p>
             <br>
             <div class="fakeimg">Fake Images</div>
             <br>
@@ -51,6 +51,13 @@
             <div class="col text-center">
                 <a class="text-center btn btn-success float-none w-25" th:href="@{/view/user(id=${auction.seller.userID})}" th:text="${auction.seller.username}"></a>
             </div>
+            <br>
+            <div sec:authorize="isFullyAuthenticated()">
+                <div class="col text-center">
+                    <a class="btn btn-info float-none w-25 text-dark" th:href="@{/users/messages/sendMessage?(auctionID=${auction.auctionID})}">Message seller</a>
+                </div>
+            </div>
+            <br>
             <p class="text-center" th:text="|From Country: ${auction.seller.address.country} , City: ${auction.seller.address.city}|"></p>
             <div class="row justify-content-center">
                 <div class="col-1"></div>

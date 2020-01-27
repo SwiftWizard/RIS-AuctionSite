@@ -101,7 +101,6 @@ public class ViewController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String userDetails(@RequestParam Long id, Model model){
-        System.err.println("Visited controller");
         model.addAttribute("userView", ur.findById(id).orElse(NotFoundModels.USER));
         return "view/user";
     }

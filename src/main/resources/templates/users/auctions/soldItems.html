@@ -78,7 +78,6 @@
                 </div>
                 <br>
                 <div th:if="${not auction.sellerLeftFeedback}">
-                    <div th:if="${auction.feedbacks}"></div>
                     <h4 class="text-center text-info">Leave feedback</h4>
                     <form class="container" action="/users/auctions/leaveFeedback", method="post">
                         <input type="text" hidden name="auctionID" th:value="${auction.auctionID}">
@@ -115,6 +114,7 @@
                     </form>
                 </div>
                 <div th:if="${auction.buyerLeftFeedback}">
+                    <p class="text-center text-warning display-4">Buyer has left a feedback, check it out at your Feedbacks section</p>
                 </div>
                 <br>
                 <div class="container">

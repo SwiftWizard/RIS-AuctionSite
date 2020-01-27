@@ -53,12 +53,11 @@ public class Auction {
     @OrderBy("amount")
     private SortedSet<Bid> bidders = new TreeSet<>();
 
-    @OneToMany(mappedBy = "auction", targetEntity = Feedback.class, fetch = FetchType.EAGER)
-    private Set<Feedback> feedbacks = new HashSet<>();
-    /*
-      Explanation: For one Auction we have many (2) feedbacks,
-       one from sellerToBuyer and one from buyerToSeller
-    */
+    @OneToOne
+    private Feedback feedbackBuyerToSeller;
+
+    @OneToOne
+    private  Feedback feedbackSellerToBuyer;
 
     private boolean sellerLeftFeedback = false;
 
@@ -185,20 +184,6 @@ public class Auction {
         return this;
     }
 
-    public Set<Feedback> getFeedbacks() {
-        return feedbacks;
-    }
-
-    public void setFeedbacks(Set<Feedback> feedbacks) {
-        this.feedbacks = feedbacks;
-    }
-
-    public Auction addFeedback(Feedback feedback){
-        this.feedbacks.add(feedback);
-        feedback.setAuction(this);
-        return this;
-    }
-
     public void setInitialPrice(double initialPrice) {
         String initialPriceStr = String.format("%.2f", initialPrice);
         this.initialPrice = Double.valueOf(initialPriceStr);
@@ -223,6 +208,5 @@ public class Auction {
     public void setBuyerLeftFeedback(boolean buyerLeftFeedback) {
         this.buyerLeftFeedback = buyerLeftFeedback;
     }
-
 
 }

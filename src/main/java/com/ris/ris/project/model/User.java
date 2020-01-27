@@ -59,7 +59,11 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "bidder", targetEntity = Bid.class, fetch = FetchType.EAGER)
     private Set<Bid> usersBids = new HashSet<>();
 
-    //TODO Messages... :/
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_messages",
+            joinColumns = @JoinColumn(name = "user_userID"),
+            inverseJoinColumns = @JoinColumn(name = "message_messageID"))
+    Set<Message> messages;
 
     public User() {
     }
@@ -275,5 +279,16 @@ public class User implements UserDetails {
         return this;
     }
 
+    public Set<Message> getMessages() {
+        return messages;
+    }
 
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
+    }
+
+    public User addMessage(Message message){
+        messages.add(message);
+        return this;
+    }
 }

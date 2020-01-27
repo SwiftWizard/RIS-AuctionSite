@@ -2,19 +2,29 @@ package com.ris.ris.project.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-//This is probably a NO-NO, but I hope it will do for now...
 @Entity
 public class Message implements Comparable<Message>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long messageID;
 
-    @ManyToOne
+    @OneToOne
     private User sender;
 
-    @ManyToOne
+    @OneToOne
     private User receiver;
+
+    //Talking about auction:
+    @OneToOne
+    private Auction auction;
+
+    @ManyToMany(mappedBy = "messages", fetch = FetchType.EAGER)
+    private Set<User> users = new HashSet<>();
 
     private String message;
 
@@ -28,28 +38,12 @@ public class Message implements Comparable<Message>{
         return this.dateTimeOfMessageSent.compareTo(other.dateTimeOfMessageSent);
     }
 
-    public Long getId() {
-        return id;
+    public Long getMessageID() {
+        return messageID;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getSender() {
-        return sender;
-    }
-
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
-
-    public User getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
+    public void setMessageID(Long messageID) {
+        this.messageID = messageID;
     }
 
     public String getMessage() {
@@ -68,5 +62,40 @@ public class Message implements Comparable<Message>{
         this.dateTimeOfMessageSent = dateTimeOfMessageSent;
     }
 
+    public User getSender() {
+        return sender;
+    }
 
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Message addUser(User user){
+        users.add(user);
+        return this;
+    }
+
+    public Auction getAuction() {
+        return auction;
+    }
+
+    public void setAuction(Auction auction) {
+        this.auction = auction;
+    }
 }

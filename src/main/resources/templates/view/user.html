@@ -35,38 +35,24 @@
             <p class="text-center text-info" th:text="|${userView.address.country}, ${userView.address.city}|"></p>
             <br>
             <br>
-            <h4 class="text-center text-info">Feedbacks as seller</h4>
-            <p class="text-center text-danger"th:if="${userView.feedbacksAsSeller.isEmpty()}" th:text="|No feedbacks as seller|"></p>
-            <div class="container border border-success">
-                <div class="col-2"></div>
-                <div class="col-8 bg-secondary" th:each="feedback : ${userView.feedbacksAsSeller}">
-                    <br>
-                    <p class="text-center text-info" th:text="|Grade: ${feedback.grade}|"></p>
-                    <p class="text-center text-info" th:text="|Auction: ${feedback.auction}|"></p>
-                    <p class="text-center text-info" th:text="|Description: ${feedback.description}|"></p>
-                    <br>
+            <h4 class="text-center text-info">User feedbacks</h4>
+            <p class="text-center text-danger"th:if="${userView.feedbacks.isEmpty()}" th:text="|User does not have feedbacks yet|"></p>
+            <div class="container">
+                <div class="row border border-danger mb-3" th:each="feedback : ${userView.feedbacks}">
+                    <div class="col-2"></div>
+                    <div class="col-8 bg-light">
+                        <br>
+                        <p class="text-center text-info" th:text="|Grade: ${feedback.grade}|"></p>
+                        <p class="text-center text-info" th:text="|Auction: ${feedback.auction.title}|"></p>
+                        <p class="text-center text-info" th:text="|Description: ${feedback.description}|"></p>
+                        <br>
+                    </div>
+                    <div class="col-2"></div>
                 </div>
-                <div class="col-2"></div>
-            </div>
-            <br>
-            <br>
-            <h4 class="text-center text-info">Feedbacks as buyer</h4>
-            <p class="text-center text-danger" th:if="${userView.feedbacksAsBuyer.isEmpty()}" th:text="|No feedbacks as buyer|"></p>
-            <div class="container border border-success">
-                <div class="col-2"></div>
-                <div class="col-8 bg-secondary" th:each="feedback : ${userView.feedbacksAsBuyer}">
-                    <br>
-                    <p class="text-center text-info" th:text="|Grade: ${feedback.grade}|"></p>
-                    <p class="text-center text-info" th:text="|Auction: ${feedback.auction}|"></p>
-                    <p class="text-center text-info" th:text="|Description: ${feedback.description}|"></p>
-                    <br>
-                </div>
-                <div class="col-2"></div>
             </div>
         </div>
         <div class="col-sm-2"></div>
     </div>
 </div>
-
 </body>
 </html>

@@ -19,8 +19,7 @@ public class Feedback {
     @ManyToMany(mappedBy = "feedbacks", fetch = FetchType.EAGER)
     private List<User> users = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn()
+    @OneToOne//nope
     private Auction auction;
 
     public Feedback() {
