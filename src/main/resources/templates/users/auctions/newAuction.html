@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Auctioneer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .fakeimg {
+            height: 200px;
+            background: #aaa;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="/includes/navigation :: navigation"></div>
+<br>
+<br>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card border-secondary">
+                        <div class="card-header">
+                            <h3 class="mb-0 my-2">New Auction</h3>
+                        </div>
+                        <div class="card-body">
+                            <form class="form" role="form" action="/users/submitAuction" method = "post">
+                                <div class="form-group">
+                                    <label for="title">Auction title</label>
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="Your auction title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="desc">Description</label>
+                                    <textarea class="form-control" id="desc" name="desc" rows="5" cols="33">
+                                    </textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">Category</label>
+                                    <select class="form-control" id="category", name="category">
+                                        <option selected disabled>Select category</option>
+                                        <option th:each="c : ${categories}" th:value="${c}" th:text="${c}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="currency">Currency</label>
+                                    <select class="form-control" id="currency", name="currency">
+                                        <option selected disabled>Select currency</option>
+                                        <option th:each="c : ${currencies}" th:value="${c}" th:text="${c}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="initPrice">Initial price</label>
+                                    <input type="text" class="form-control" id="initPrice" name="initPrice" placeholder="12$">
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <div class="col text-center">
+                                <input type="submit" class="btn btn-success btn-lg" value="Add new auction">
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</body>
+</html>

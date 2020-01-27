@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Auctioneer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .fakeimg {
+            height: 200px;
+            background: #aaa;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="/includes/navigation :: navigation"></div>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card border-secondary">
+                        <div class="card-header">
+                            <h3 class="mb-0 my-2" th:if="${auction != null}" th:text="|Upload images for: ${auction.title}|"></h3>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{'/users/submitAuction/uploadImages/auctionID=' +  ${auction.auctionID}}" class="form" role="form" method="post" enctype="multipart/form-data">
+                                <div>
+                                    <label for="imageA">Primary image A</label>
+                                    <input type="file" class="form-control" id="imageA" name="imageA" required>
+                                </div>
+                                <div>
+                                    <label for="imageB">Image B</label>
+                                    <input type="file" class="form-control" id="imageB" name="imageB" required>
+                                </div>
+                                <div>
+                                    <label for="imageC">Image C</label>
+                                    <input type="file" class="form-control" id="imageC" name="imageC" required>
+                                </div>
+                                <div>
+                                    <label for="imageC">Activate auction </label>
+                                    <input type="checkbox" checked disabled></input>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col text-center">
+                                        <input type="submit" class="btn btn-success btn-lg" value="Add images">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

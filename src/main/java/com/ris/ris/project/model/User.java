@@ -9,10 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class User implements UserDetails {
@@ -36,36 +33,31 @@ public class User implements UserDetails {
     private LocalDateTime lastPasswordResetDateTime;
     private boolean emailVerified = true; //To make it verified by default, if there`s time implement it
 
-    /*Bidirectional link to authorities (roles)*/
-    //@ManyToMany(fetch = FetchType.EAGER)
-    //@JoinTable(name = "Authority", joinColumns = @JoinColumn(name = "userID", referencedColumnName = "userID"),
-    //inverseJoinColumns = @JoinColumn(name = "authorityID", referencedColumnName = "authorityID"))
-    @OneToMany(mappedBy = "user", targetEntity = Authority.class,fetch = FetchType.EAGER)
-    private List<Authority> authorities  = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", targetEntity = Authority.class, fetch = FetchType.EAGER)
+    private Set<Authority> authorities = new HashSet<>();
 
     @Lob
     @Column(columnDefinition = "BLOB")
     private Byte[] profileImage;
 
     /*Bidirectional link to Auction as seller*/
-    @OneToMany(mappedBy = "seller", targetEntity = Auction.class)
-    private List<Auction> auctionsForSale = new ArrayList<>();
+    @OneToMany(mappedBy = "seller", targetEntity = Auction.class, fetch = FetchType.EAGER)
+    private Set<Auction> auctionsForSale = new HashSet<>();
 
     /*Bidirectional link to Auction as buyer*/
-    @OneToMany(mappedBy = "buyer", targetEntity = Auction.class)
-    private List<Auction> boughtItems = new ArrayList<>();
+    @OneToMany(mappedBy = "buyer", targetEntity = Auction.class, fetch = FetchType.EAGER)
+    private Set<Auction> boughtItems = new HashSet<>();
 
-    /*Bidirectional link to Feedback as seller*/
-    @OneToMany(mappedBy = "seller", targetEntity = Feedback.class)
-    private List<Feedback> feedbacksAsSeller = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_feedback",
+            joinColumns = @JoinColumn(name = "user_userID"),
+            inverseJoinColumns = @JoinColumn(name = "feedback_feedbackID"))
+    private Set<Feedback> feedbacks = new HashSet<>();
 
-    /*Bidirectional link to Feedback as buyer*/
-    @OneToMany(mappedBy = "buyer", targetEntity = Feedback.class)
-    private List<Feedback> feedbacksAsBuyer = new ArrayList<>();
-
-    /*Bidirectional link to Bid*/
-    @OneToMany(mappedBy = "bidder", targetEntity = Bid.class)
-    private List<Bid> usersBids = new ArrayList<>();
+    /*Link to Bid*/
+    @OneToMany(mappedBy = "bidder", targetEntity = Bid.class, fetch = FetchType.EAGER)
+    private Set<Bid> usersBids = new HashSet<>();
 
     //TODO Messages... :/
 
@@ -141,8 +133,19 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Auction> getAuctionsForSale() {
-        return auctionsForSale;
+    public Set<Auction> getAuctionsForSale() {
+        /*
+          Fixes:
+            *org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role ...(role)
+            *could not initialize proxy - no Session
+
+            *Note: no proper solution for this problem exists
+         */
+        Set<Auction> auctions = auctionsForSale;
+        for(Auction a : auctions){
+            a.getBidders().size();
+        }
+        return auctions;
     }
 
     public User addAuctionForSale(Auction auction){
@@ -151,12 +154,16 @@ public class User implements UserDetails {
         return this;
     }
 
-    public void setAuctionsForSale(List<Auction> auctionsForSale) {
+    public void setAuctionsForSale(Set<Auction> auctionsForSale) {
         this.auctionsForSale = auctionsForSale;
     }
 
-    public List<Auction> getBoughtItems() {
-        return boughtItems;
+    public Set<Auction> getBoughtItems() {
+        Set<Auction> auctions = boughtItems;
+        for(Auction a : auctions){
+            a.getBidders().size();
+        }
+        return auctions;
     }
 
     public User addBoughtItem(Auction auction){
@@ -165,36 +172,8 @@ public class User implements UserDetails {
         return this;
     }
 
-    public void setBoughtItems(List<Auction> boughtItems) {
+    public void setBoughtItems(Set<Auction> boughtItems) {
         this.boughtItems = boughtItems;
-    }
-
-    public List<Feedback> getFeedbacksAsBuyer() {
-        return feedbacksAsBuyer;
-    }
-
-    public void setFeedbacksAsBuyer(List<Feedback> feedbacksAsBuyer) {
-        this.feedbacksAsBuyer = feedbacksAsBuyer;
-    }
-
-    public User addFeedbackAsBuyer(Feedback feedback){
-        this.feedbacksAsBuyer.add(feedback);
-        feedback.setBuyer(this);
-        return this;
-    }
-
-    public List<Feedback> getFeedbacksAsSeller() {
-        return feedbacksAsSeller;
-    }
-
-    public void setFeedbacksAsSeller(List<Feedback> feedbacksAsSeller) {
-        this.feedbacksAsSeller = feedbacksAsSeller;
-    }
-
-    public User addFeedbackAsSeller(Feedback feedback){
-        this.feedbacksAsSeller.add(feedback);
-        feedback.setSeller(this);
-        return this;
     }
 
     public String getFirstName() {
@@ -235,7 +214,7 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.lastPasswordResetDateTime = LocalDateTime.now();
-        this.password = password;//new BCryptPasswordEncoder().encode(password);
+        this.password = new BCryptPasswordEncoder().encode(password);
     }
 
     public Byte[] getProfileImage() {
@@ -246,11 +225,11 @@ public class User implements UserDetails {
         this.profileImage = profileImage;
     }
 
-    public List<Bid> getUsersBids() {
+    public Set<Bid> getUsersBids() {
         return usersBids;
     }
 
-    public void setUsersBids(List<Bid> usersBids) {
+    public void setUsersBids(Set<Bid> usersBids) {
         this.usersBids = usersBids;
     }
 
@@ -278,5 +257,23 @@ public class User implements UserDetails {
     public void setEmailVerified(boolean emailVerified) {
         this.emailVerified = emailVerified;
     }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public Set<Feedback> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(Set<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
+    }
+
+    public User addFeedback(Feedback feedback){
+        this.feedbacks.add(feedback);
+        return this;
+    }
+
 
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Auctioneer</title>
+    <meta charset="utf-8">
+</head>
+<body>
+<div th:fragment="navigation">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-info font-weight-bold text-xl-left" href="/">Auctioneer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="/about">About</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item text-success">
+                    <a class="nav-link text-info" href="/users/userProfile" th:if="${user != null}" th:text="|${user.firstName}`s profile|">Your profile</a>
+                </li>
+            </ul>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto text-info font-weight-bold text-xl-center" href="/view/auctions/all"> Auctions </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <!-- Not working properly.... -->
+                <li sec:authorize="isAnonymous()" class="nav-item">
+                    <a class="nav-link text-warning" href="/register/newUser">Register</a>
+                </li>
+                <li sec:authorize="isAnonymous()"class="nav-item">
+                    <a class="nav-link text-success" href="/authentication/login">Login</a>
+                </li>
+                <li sec:authorize="isAuthenticated()"class="nav-item">
+                    <a class="nav-link text-danger" href="/authentication/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

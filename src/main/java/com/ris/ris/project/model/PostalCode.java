@@ -15,7 +15,8 @@ public enum PostalCode {
     HR20000,
     HU1007;
 
-    public static List<PostalCode> getZipCodesFromCountry(String countryPrefix){
+    /*Method could use a better implementation... */
+    public static List<PostalCode> getPostalCodesFromCountry(String countryPrefix){
         return Arrays.stream(PostalCode.values())
                 .filter(z -> z.toString().startsWith(countryPrefix))
                 .collect(Collectors.toList());

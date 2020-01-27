@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Auctioneer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:fragment="controls">
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item mb-1">
+            <a class="nav-link bg-info text-white" href="/users/newAuction">New auction</a>
+        </li>
+        <li class="nav-item mb-1">
+            <a class="nav-link bg-info text-white" href="/users/userAuctions">My auctions</a>
+        </li>
+        <li class="nav-item mb-1">
+            <a class="nav-link bg-info text-white" href="/users/auctions/boughtItems">My bought items </a>
+        </li>
+        <li class="nav-item mb-1">
+            <a class="nav-link bg-info text-white" href="/users/auctions/soldItems">My sold items </a>
+        </li>
+        <li class="nav-item mb-1">
+            <a class="nav-link bg-info text-white" href="/users/userBids">My bids</a>
+        </li>
+        <li class="nav-item mb-1">
+            <a class="nav-link bg-info text-white" href="/users/userFeedbacks">Feedbacks</a>
+        </li>
+        <li class="nav-item mb-1">
+            <a class="nav-link bg-info text-white" href="#">Messages</a>
+        </li>
+        <li class="nav-item mb-1">
+            <a class="nav-link bg-info text-white" href="#">Reports</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

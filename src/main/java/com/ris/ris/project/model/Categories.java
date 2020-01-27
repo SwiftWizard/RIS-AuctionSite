@@ -6,21 +6,11 @@ public enum Categories {
     COLLECTIBLES_AND_ARTS,
     ELECTRONICS,
     FASHION,
-    HOME_AND_GRADEN,
-    AUTO_PARTS_AND_ACCESSORIES,
-    MUSICAL_INSTRUMENTS_AND_GEAR,
+    HOME_AND_GARDEN,
+    AUTO_PARTS,
+    AUTO_ACCESSORIES,
+    MUSICAL_INSTRUMENTS,
     SPORTING_GOODS,
     TOYS_AND_HOBBIES,
     OTHER_CATEGORIES;
-
-    @Override
-    public String toString(){
-        String res = "";
-        String[] tokens = this.toString().split("_");
-        for(int i = 0; i < tokens.length; i++) {
-            tokens[i] = tokens[i].charAt(0) + tokens[i].substring(1,tokens[i].length()).toLowerCase();
-            res += tokens[i];
-        }
-        return res;
-    }
 }

@@ -1,10 +1,9 @@
-<!-- Template taken and modified from: w3schools link(https://www.w3schools.com/bootstrap4/bootstrap_templates.asp)-->
 <!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <meta charset="UTF-8">
     <title>Auctioneer</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,9 +13,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
     <style>
-        .img {
-            height: 300px;
-            width: 300px;
+        .fakeimg {
+            height: 200px;
+            background: #aaa;
         }
     </style>
 </head>
@@ -25,17 +24,15 @@
 <br>
 <br>
 <div class="container" style="margin-top:30px">
-    <div class="row">
-        <div class="col-12">
-            <h2 class="text-center text-info font-weight-bold">Welcome to the Auctioneer website</h2>
-            <h5 class="text-center text-info">Your preferred auction site</h5>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <a th:href="@{/view/auctions/auction(id=${auction.auctionID})}" class="col-4 bg-light border border-info" th:each="auction : ${newAuctions}">
-            <p class="text-center text-info" th:text="${auction.title}"></p>
-            <img class="mx-auto d-block img" th:src="@{'/images/auction?auctionID=' + @{auction.auctionID} +'&image=A'}" alt="Image not available">
-        </a>
+    <div>
+        <h2 class="text-center text-info font-weight-bold">About</h2>
+        <br>
+        <p class="text-center" style="font-size: 25px">
+            University assignment. This is a project of a Auction Site for the course "Razvoj infromacionih sistema" (Eng.:"Development of Information Systems").
+        </p>
+        <p class="text-center" style="font-size: 20px">
+            Projekat je pisan na engleskom jeziku radi vezbe. Jednog dana me svakako ceka pisanje koda na engleskom pa sam iskoristio priliku da se oprobam :)
+        </p>
     </div>
 </div>
 </body>

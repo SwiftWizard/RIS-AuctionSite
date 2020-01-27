@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//@Component
+@Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     AuctionRepository ar;
 
     @Autowired
-    FeedBackRepository fr;
+    FeedbackRepository fr;
 
     @Autowired
     UserRepository ur;
@@ -72,7 +72,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         user1.setAccountCreationDate(LocalDate.now());
         user1.setDateOfBirth(LocalDate.of(1994, 10, 22));
         user1.setEmail("marko@email.com");
-        user1.setPassword("MySuperSecretPassword");
+        user1.setPassword("1234");
         user1.setPhoneNumber("06212344321");
         user1.setAddress(address1);
 
@@ -86,7 +86,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         user2.setAccountCreationDate(LocalDate.now());
         user2.setDateOfBirth(LocalDate.of(1998, 11, 2));
         user2.setEmail("mirko@email.com");
-        user2.setPassword("ExtraSecretPassword");
+        user2.setPassword("1234");
         user2.setPhoneNumber("06412344321");
         user2.setAddress(address2);
 
@@ -100,7 +100,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         user3.setAccountCreationDate(LocalDate.now());
         user3.setDateOfBirth(LocalDate.of(1985, 5, 25));
         user3.setEmail("lara@email.com");
-        user3.setPassword("SecretLaraPassword");
+        user3.setPassword("1234");
         user3.setPhoneNumber("06124356");
         user3.setAddress(address3);
 
@@ -125,8 +125,51 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         auction1.setSeller(user1);
         auction1.setCurrency(Currency.EURO);
         auction1.setInitialPrice(12.5111f);
-        auction1.setDateTimeOfAuctionEnd(LocalDateTime.now().plusDays(7));
         ar.save(auction1);
+
+        Auction auction2 = new Auction();
+        auction2.setTitle("Sony PS4");
+        auction2.setDescription("Hi, im selling a Play Station 4 in good condition.");
+        auction2.setAuctionState(AuctionState.ACTIVE);
+        auction2.setCategory(Categories.ELECTRONICS);
+        auction2.setDateTimeOfAuctionStart(LocalDateTime.now());
+        auction2.setSeller(user1);
+        auction2.setCurrency(Currency.EURO);
+        auction2.setInitialPrice(55.555f);
+        ar.save(auction2);
+
+        Auction auction3 = new Auction();
+        auction3.setTitle("Router");
+        auction3.setDescription("Cisco router model: Cisco 2010 Connected Grid Router");
+        auction3.setAuctionState(AuctionState.ACTIVE);
+        auction3.setCategory(Categories.ELECTRONICS);
+        auction3.setDateTimeOfAuctionStart(LocalDateTime.now());
+        auction3.setSeller(user2);
+        auction3.setCurrency(Currency.RSD);
+        auction3.setInitialPrice(9999.901f);
+        ar.save(auction3);
+
+        Auction auction4 = new Auction();
+        auction4.setTitle("Gibson guitar");
+        auction4.setDescription("Hello, im selling a Gibson guitar in excellent condition");
+        auction4.setAuctionState(AuctionState.ACTIVE);
+        auction4.setCategory(Categories.MUSICAL_INSTRUMENTS);
+        auction4.setDateTimeOfAuctionStart(LocalDateTime.now());
+        auction4.setSeller(user3);
+        auction4.setCurrency(Currency.EURO);
+        auction4.setInitialPrice(121.112f);
+        ar.save(auction4);
+
+        Auction auction5 = new Auction();
+        auction5.setTitle("WV Beetle engine");
+        auction5.setDescription("Hi, im selling a engine for a WV Beetle from 1967 - 1500cc needs some fixing. PM me for more info.");
+        auction5.setAuctionState(AuctionState.ACTIVE);
+        auction5.setCategory(Categories.AUTO_PARTS);
+        auction5.setDateTimeOfAuctionStart(LocalDateTime.now());
+        auction5.setSeller(user2);
+        auction5.setCurrency(Currency.EURO);
+        auction5.setInitialPrice(67.25);
+        ar.save(auction5);
 
         //Bids
         Bid bid = new Bid();

@@ -1,6 +1,9 @@
 package com.ris.ris.project.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Feedback {
@@ -11,20 +14,13 @@ public class Feedback {
     @Enumerated(value = EnumType.STRING)
     private FeedbackGrade grade;
 
-    /*We want to have more than 255 characters available to the user when writing a description*/
-
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "seller_userID")
-    private User seller;
+    @ManyToMany(mappedBy = "feedbacks", fetch = FetchType.EAGER)
+    private List<User> users = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "buyer_userID")
-    private User buyer;
-
-    @ManyToOne
-    @JoinColumn(name = "auction_auctionID")
+    @JoinColumn()
     private Auction auction;
 
     public Feedback() {
@@ -63,19 +59,18 @@ public class Feedback {
         this.description = description;
     }
 
-    public User getSeller() {
-        return seller;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setSeller(User seller) {
-        this.seller = seller;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
-    public User getBuyer() {
-        return buyer;
+    public Feedback addUser(User user){
+        users.add(user);
+        return this;
     }
 
-    public void setBuyer(User buyer) {
-        this.buyer = buyer;
-    }
+
 }

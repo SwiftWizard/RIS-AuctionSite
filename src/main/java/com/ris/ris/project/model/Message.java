@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 //This is probably a NO-NO, but I hope it will do for now...
 @Entity
-public class Message {
+public class Message implements Comparable<Message>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,12 +16,16 @@ public class Message {
     @ManyToOne
     private User receiver;
 
-
     private String message;
 
     private LocalDateTime dateTimeOfMessageSent;
 
     public Message() {
+    }
+
+    @Override
+    public int compareTo(Message other) {
+        return this.dateTimeOfMessageSent.compareTo(other.dateTimeOfMessageSent);
     }
 
     public Long getId() {
@@ -63,4 +67,6 @@ public class Message {
     public void setDateTimeOfMessageSent(LocalDateTime dateTimeOfMessageSent) {
         this.dateTimeOfMessageSent = dateTimeOfMessageSent;
     }
+
+
 }

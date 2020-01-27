@@ -28,7 +28,7 @@ public class Bid implements Comparable<Bid>{
 
     @Override
     public int compareTo(Bid other) {
-        return Double.compare(this.amount, other.getAmount());
+        return Double.compare(other.getAmount(), this.amount);
     }
 
     public Long getBidID() {
@@ -71,4 +71,6 @@ public class Bid implements Comparable<Bid>{
     public void setBidDateTime(LocalDateTime bidDateTime) {
         this.bidDateTime = bidDateTime;
     }
+
+
 }

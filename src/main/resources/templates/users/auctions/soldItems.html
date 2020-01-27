@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Auctioneer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<br>
+<br>
+<div th:replace="/includes/navigation :: navigation"></div>
+<div class="container" style="margin-top:30px">
+    <div class="row">
+        <div class="col-sm-2">
+            <br>
+            <div th:replace="/includes/controls ::controls"></div>
+            <hr class="d-sm-none">
+        </div>
+        <div class="col-sm-10">
+            <div class="border border-info bg-light mt-5" th:each="auction : ${soldItems}">
+                <br>
+                <h2 class="text-info text-center" th:text="${auction.title}"></h2>
+                <h4 class="text-danger text-center" th:if="${auction.dateTimeOfAuctionEnd != null}" th:text="Finished"></h4>
+                <h5 class="text-success text-center" th:if="${not auction.bidders.isEmpty()}" th:text="|${auction.bidders.first().amount} ${auction.currency}|">Current max bid</h5>
+                <h5 class="text-success text-center" th:if="${auction.bidders.isEmpty()}" th:text="|${auction.initialPrice} ${auction.currency}|">No bids, initial price shown</h5>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <img class="col-2 img" src="../../static/images/screenshot.png" th:src="@{'/images/auction?auctionID=' + ${auction.auctionID} +'&image=B'}" alt="Image not available">
+                        <div class="col-1"></div>
+                        <img class="col-2 img" src="../../static/images/screenshot.png" th:src="@{'/images/auction?auctionID=' + ${auction.auctionID} +'&image=A'}" alt="Image not available">
+                        <div class="col-1"></div>
+                        <img class="col-2 img" src="../../static/images/screenshot.png" th:src="@{'/images/auction?auctionID=' + ${auction.auctionID} +'&image=C'}" alt="Image not available">
+                        <div class="col-2"></div>
+                    </div>
+                </div>
+                <br>
+                <div class="container" th:if="${auction.dateTimeOfAuctionStart != null}">
+                    <div class="row">
+                        <p class="col-2 text-center text-white bg-secondary" >Date of auction start:</p>
+                        <p class="col-3 text-center text-warning bg-secondary" th:text="${auction.dateTimeOfAuctionStart.toString().substring(0,10)}"></p>
+                        <p class="col-2 bg-info"></p>
+                        <p class="col-2 text-center text-white bg-secondary" >Time of auction start:</p>
+                        <p class="col-3 text-center text-warning bg-secondary" th:text="${auction.dateTimeOfAuctionStart.toString().substring(11)}"></p>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="container" th:if="${auction.dateTimeOfAuctionEnd != null}">
+                    <div class="row">
+                        <p class="col-2 text-center text-white bg-secondary">Date of auction end:</p>
+                        <p class="col-3 text-center text-warning bg-secondary" th:text="${auction.dateTimeOfAuctionEnd.toString().substring(0,10)}"></p>
+                        <p class="col-2 bg-info"></p>
+                        <p class="col-2 text-center text-white bg-secondary" >Time of auction start:</p>
+                        <p class="col-3 text-center text-warning bg-secondary" th:text="${auction.dateTimeOfAuctionEnd.toString().substring(11)}"></p>
+                    </div>
+                </div>
+                <br>
+                <div class="col text-center" th:if="${auction.dateTimeOfAuctionEnd == null}">
+                    <form action="/users/userAuctions/terminateAuction">
+                        <label for="terminateAuction"></label>
+                        <select name="auctionID" id = "terminateAuction" required>
+                            <option selected disabled>Terminate auction?</option>
+                            <option th:value="${auction.auctionID}" th:text="Terminate"></option>
+                        </select>
+                        <br>
+                        <br>
+                        <input class="btn btn-danger" type="submit" value="Submit termination">
+                    </form>
+                </div>
+                <br>
+                <div th:if="${not auction.sellerLeftFeedback}">
+                    <div th:if="${auction.feedbacks}"></div>
+                    <h4 class="text-center text-info">Leave feedback</h4>
+                    <form class="container" action="/users/auctions/leaveFeedback", method="post">
+                        <input type="text" hidden name="auctionID" th:value="${auction.auctionID}">
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <label class="col-6 text-center" for="feedbackGrade">Feedback grade</label>
+                            <div class="col-3"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <select class="text-center col-6" name="feedbackGrade" id="feedbackGrade">
+                                <option th:each="grade : ${feedbackGrades}" th:text="${grade}" th:value="${grade}"></option>
+                            </select>
+                            <div class="col-3"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <label class="text-center col-6" for="desc">Description</label>
+                            <div class="col-3"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <textarea class="text-center col-6" id="desc" name="desc" rows="5" cols="33"></textarea>
+                            <div class="col-3"></div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <div class="col text-center">
+                                <input type="submit" class="btn btn-success btn-lg" value="Leave feedback">
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+                    </form>
+                </div>
+                <div th:if="${auction.buyerLeftFeedback}">
+                </div>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="border border-success col-6">
+                            <h5 class="text-center text-success">Bids</h5>
+                            <div th:each="bid : ${auction.bidders}">
+                                <div class="col text-center">
+                                    <p class="text-white  btn btn-success float-none w-25" th:if="${not auction.bidders.isEmpty()}" th:text="|${bid.amount}, by user: ${bid.bidder.username}|"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3"></div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

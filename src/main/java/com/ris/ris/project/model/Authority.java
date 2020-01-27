@@ -21,6 +21,16 @@ public class Authority implements GrantedAuthority {
         return this.authority;
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
     public void setAuthority(String authority) {
         this.authority = authority;
     }
@@ -40,4 +50,6 @@ public class Authority implements GrantedAuthority {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }
