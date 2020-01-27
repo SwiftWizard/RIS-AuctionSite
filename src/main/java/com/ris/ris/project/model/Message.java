@@ -24,7 +24,7 @@ public class Message implements Comparable<Message>{
     private Auction auction;
 
     @ManyToMany(mappedBy = "messages", fetch = FetchType.EAGER)
-    private Set<User> users = new HashSet<>();
+    private List<User> users = new ArrayList<>();
 
     private String message;
 
@@ -78,11 +78,11 @@ public class Message implements Comparable<Message>{
         this.receiver = receiver;
     }
 
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 

@@ -32,8 +32,16 @@ public class MessageController {
 
         Auction auction = ar.findById(auctionID).get();
 
-        model.addAttribute("messages", mr.findAllByAuction(auction));
+        model.addAttribute("auction", auction);
+
+        model.addAttribute("messages", mr.findAllBySenderAndReceiverAndAuctionOrderByDateTimeOfMessageSent(user, auction.getSeller(), auction));
 
         return "users/messages/sendMessage";
+    }
+
+    @RequestMapping("/listConversations")
+    public String findConversations(){
+        //TODO implement
+        return "users/messages/listConversations";
     }
 }

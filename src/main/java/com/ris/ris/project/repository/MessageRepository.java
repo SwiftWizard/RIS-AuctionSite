@@ -10,7 +10,7 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findAllByAuction(Auction auction);
 
-    List<Message> findAllBySenderAndAuction(User sender, Auction auction);
+    List<Message> findAllBySenderAndReceiverAndAuctionOrderByDateTimeOfMessageSent(User sender, User receiver, Auction auction);
 
     List<Message> findAllByReceiverAndAuction(User receiver, Auction auction);
 

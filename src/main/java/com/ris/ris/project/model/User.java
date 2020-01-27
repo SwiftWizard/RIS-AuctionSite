@@ -63,7 +63,7 @@ public class User implements UserDetails {
     @JoinTable(name = "user_messages",
             joinColumns = @JoinColumn(name = "user_userID"),
             inverseJoinColumns = @JoinColumn(name = "message_messageID"))
-    Set<Message> messages;
+    List<Message> messages = new ArrayList<>();
 
     public User() {
     }
@@ -279,11 +279,11 @@ public class User implements UserDetails {
         return this;
     }
 
-    public Set<Message> getMessages() {
+    public List<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(Set<Message> messages) {
+    public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
 

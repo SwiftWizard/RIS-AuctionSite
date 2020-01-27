@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="45a629d8-d918-441b-acec-8ff28e6fd349">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="auctionCount" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="title" class="java.lang.String"/>
+	<field name="category" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="maxBid" class="java.lang.Float"/>
+	<variable name="auctionCount" class="java.lang.Integer" calculation="Count"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="109" splitType="Stretch">
+			<staticText>
+				<reportElement x="190" y="36" width="179" height="30" uuid="90c3fcbc-be21-40ff-9a0e-794b5cf1e884"/>
+				<text><![CDATA[Active auctions report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="43" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="0" width="100" height="30" uuid="5d97a3ae-e000-411a-bd98-656c52c42dc4"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="100" height="30" uuid="a4d8551c-591a-4051-9788-1ce4c48a4f79"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Category]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="100" height="30" uuid="6a0b6390-d889-4dd0-89be-64f0f05a2a95"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="100" height="30" uuid="defabcef-bc54-4858-a8e0-9275be8d5d0a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Current max bid]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="180" y="0" width="100" height="30" uuid="f5bbe1ce-d2a0-4284-b3fe-31d4b5c6c13c"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{category}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="1" width="100" height="30" uuid="bcb4c636-c37d-4d43-8598-352651418454"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="1" width="100" height="30" uuid="b18b48fb-f4d0-4762-90ef-6410f5709b4c"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="1" width="100" height="30" uuid="de52d0f2-9b94-4dd1-a092-a4707de12eb4"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{maxBid}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="74" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="230" y="6" width="100" height="30" uuid="1cf5e259-f52d-44b5-bbf8-4ec098e7833a"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="280" y="0" width="100" height="30" uuid="52c480ec-2e48-4e85-ba82-cce84b587199"/>
+				<textFieldExpression><![CDATA[$P{auctionCount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="180" y="0" width="100" height="30" uuid="696d9bd5-f49b-49c9-a28d-5f2eaf0ee9b6"/>
+				<text><![CDATA[Auction count:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
