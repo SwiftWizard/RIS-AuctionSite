@@ -2,11 +2,11 @@ package com.ris.ris.project.model;
 
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -17,20 +17,38 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userID;
 
+    @NotNull(message = "Please fill in your first name")
     private String firstName;
+
+    @NotNull(message = "Please fill in your last name")
     private String lastName;
+
+    @NotNull(message = "Please fill in your username")
     private String username;
 
     /*Unidirectional link to address*/
     @OneToOne
     private Address address;
 
+    //@NotBlank(message = "Please fill in your date of birth") //Causes shutdown?!
     private LocalDate dateOfBirth;
+
+    //Does not work initiates shutdown - @Pattern(regexp = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(?\\d{3}\\)?\\d{3}-?\\d{4}|\\(?\\d{3}\\)?\\d{3}/?\\d{4}", message = "Please fill in a valid phone number")
+    @NotNull(message = "Please fill in your phone number")
     private String phoneNumber;
+
     private LocalDate accountCreationDate;
+
+    @NotNull(message = "Please fill in your email address")
+    @Email(message = "Please enter a valid email address")
     private String email;
+
+    @NotNull(message = "Please fill in your password")
+    @Size(min=6, max = 100, message = "Password length must be at least 6 characters long")
     private String password;
+
     private LocalDateTime lastPasswordResetDateTime;
+
     private boolean emailVerified = true; //To make it verified by default, if there`s time implement it
 
 

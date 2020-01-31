@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -39,8 +40,16 @@ public class MessageController {
         return "users/messages/sendMessage";
     }
 
+    @RequestMapping("/doSendMessage")
+    public String doSendMessage(@RequestParam Long receiverID, @RequestParam Long auctionID, String message, RedirectAttributes model){
+
+        return "redirect:/user/messages/sendMessage";
+    }
+
     @RequestMapping("/listConversations")
-    public String findConversations(){
+    public String findConversations(Model model){
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
         //TODO implement
         return "users/messages/listConversations";
     }

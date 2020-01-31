@@ -1,6 +1,7 @@
 package com.ris.ris.project.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Address {
@@ -8,15 +9,18 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long addressID;
 
-    /*We want to persist Country as a String not a number.*/
+    @NotNull(message = "Please select a country")
     @Enumerated(value = EnumType.STRING)
     private Country country;
 
+    @NotNull(message = "Please select a postal code")
     @Enumerated(value = EnumType.STRING)
     private PostalCode postalCode;
 
+    @NotNull(message = "Please add a city")
     private String city;
 
+    @NotNull(message = "Please add a address")
     private String address;
 
     public Address() {

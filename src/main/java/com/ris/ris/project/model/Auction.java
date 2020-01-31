@@ -1,6 +1,7 @@
 package com.ris.ris.project.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -11,11 +12,14 @@ public class Auction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long auctionID;
 
+    @NotNull(message = "Please add a title")
     private String title;
 
+    @NotNull(message = "Please add a description")
     private String description;
 
     private LocalDateTime dateTimeOfAuctionStart;
+
     private LocalDateTime dateTimeOfAuctionEnd;
 
     @Lob
@@ -30,9 +34,11 @@ public class Auction {
     @Column(columnDefinition = "BLOB")
     private Byte[] imageC;
 
+    @NotNull
     @Enumerated(value = EnumType.STRING)
     private AuctionState auctionState;
 
+    @NotNull(message = "Please add a category")
     @Enumerated(value = EnumType.STRING)
     private Categories category;
 
@@ -44,9 +50,11 @@ public class Auction {
     @JoinColumn(name="buyer_userID")
     private User buyer;
 
+    @NotNull(message = "Please add a currency")
     @Enumerated(EnumType.STRING)
     private Currency currency;
 
+    @NotNull(message = "Initial price missing")
     private double initialPrice;
 
     @OneToMany(mappedBy = "auction", targetEntity = Bid.class, fetch = FetchType.EAGER)

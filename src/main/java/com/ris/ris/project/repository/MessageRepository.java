@@ -4,6 +4,7 @@ import com.ris.ris.project.model.Auction;
 import com.ris.ris.project.model.Message;
 import com.ris.ris.project.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 

@@ -14,7 +14,7 @@ public class ImageServiceImpl implements  ImageService{
     AuctionRepository ar;
 
     @Override
-    public void saveImageFilesForAuctions(Long auctionID, MultipartFile ... files) {
+    public void saveImageFilesForAuction(Long auctionID, MultipartFile ... files) {
         try{
             Auction auction = ar.findById(auctionID).get();
             int numberOfFiles = 0;

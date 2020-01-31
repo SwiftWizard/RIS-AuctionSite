@@ -24,32 +24,46 @@
             <hr class="d-sm-none">
         </div>
         <div class="col-sm-10">
+            <br>
+            <h2 class="text-center text-info" th:text="|${user.username} sold items|"></h2>
+            <br>
             <div class="border border-info bg-light mt-5" th:each="auction : ${soldItems}">
                 <br>
                 <h2 class="text-info text-center" th:text="${auction.title}"></h2>
-                <h4 class="text-danger text-center" th:if="${auction.dateTimeOfAuctionEnd != null}" th:text="Finished"></h4>
-                <h5 class="text-success text-center" th:if="${not auction.bidders.isEmpty()}" th:text="|${auction.bidders.first().amount} ${auction.currency}|">Current max bid</h5>
-                <h5 class="text-success text-center" th:if="${auction.bidders.isEmpty()}" th:text="|${auction.initialPrice} ${auction.currency}|">No bids, initial price shown</h5>
+                <h4 class="text-danger text-center" th:if="${auction.dateTimeOfAuctionEnd != null}"
+                    th:text="Finished"></h4>
+                <h5 class="text-success text-center" th:if="${not auction.bidders.isEmpty()}"
+                    th:text="|${auction.bidders.first().amount} ${auction.currency}|">Current max bid</h5>
+                <h5 class="text-success text-center" th:if="${auction.bidders.isEmpty()}"
+                    th:text="|${auction.initialPrice} ${auction.currency}|">No bids, initial price shown</h5>
                 <br>
                 <div class="container">
                     <div class="row">
                         <div class="col-2"></div>
-                        <img class="col-2 img" src="../../static/images/screenshot.png" th:src="@{'/images/auction?auctionID=' + ${auction.auctionID} +'&image=B'}" alt="Image not available">
+                        <img class="col-2 img" src="../../static/images/screenshot.png"
+                             th:src="@{'/images/auction?auctionID=' + ${auction.auctionID} +'&image=B'}"
+                             alt="Image not available">
                         <div class="col-1"></div>
-                        <img class="col-2 img" src="../../static/images/screenshot.png" th:src="@{'/images/auction?auctionID=' + ${auction.auctionID} +'&image=A'}" alt="Image not available">
+                        <img class="col-2 img" src="../../static/images/screenshot.png"
+                             th:src="@{'/images/auction?auctionID=' + ${auction.auctionID} +'&image=A'}"
+                             alt="Image not available">
                         <div class="col-1"></div>
-                        <img class="col-2 img" src="../../static/images/screenshot.png" th:src="@{'/images/auction?auctionID=' + ${auction.auctionID} +'&image=C'}" alt="Image not available">
+                        <img class="col-2 img" src="../../static/images/screenshot.png"
+                             th:src="@{'/images/auction?auctionID=' + ${auction.auctionID} +'&image=C'}"
+                             alt="Image not available">
                         <div class="col-2"></div>
                     </div>
                 </div>
                 <br>
                 <div class="container" th:if="${auction.dateTimeOfAuctionStart != null}">
                     <div class="row">
-                        <p class="col-2 text-center text-white bg-secondary" >Date of auction start:</p>
-                        <p class="col-3 text-center text-warning bg-secondary" th:text="${auction.dateTimeOfAuctionStart.toString().substring(0,10)}"></p>
+                        <p class="col-2 text-center text-white bg-secondary">Date of auction start:</p>
+                        <p class="col-3 text-center text-warning bg-secondary"
+                           th:text="${auction.dateTimeOfAuctionStart.toString().substring(0,10)}"></p>
                         <p class="col-2 bg-info"></p>
-                        <p class="col-2 text-center text-white bg-secondary" >Time of auction start:</p>
-                        <p class="col-3 text-center text-warning bg-secondary" th:text="${auction.dateTimeOfAuctionStart.toString().substring(11)}"></p>
+                        <p class="col-2 text-center text-white bg-secondary">Time of auction start:</p>
+                        <p class="col-3 text-center text-warning bg-secondary"
+                           th:text="${auction.dateTimeOfAuctionStart.toString().substring(11)}"></p>
                     </div>
                 </div>
                 <br>
@@ -57,17 +71,19 @@
                 <div class="container" th:if="${auction.dateTimeOfAuctionEnd != null}">
                     <div class="row">
                         <p class="col-2 text-center text-white bg-secondary">Date of auction end:</p>
-                        <p class="col-3 text-center text-warning bg-secondary" th:text="${auction.dateTimeOfAuctionEnd.toString().substring(0,10)}"></p>
+                        <p class="col-3 text-center text-warning bg-secondary"
+                           th:text="${auction.dateTimeOfAuctionEnd.toString().substring(0,10)}"></p>
                         <p class="col-2 bg-info"></p>
-                        <p class="col-2 text-center text-white bg-secondary" >Time of auction start:</p>
-                        <p class="col-3 text-center text-warning bg-secondary" th:text="${auction.dateTimeOfAuctionEnd.toString().substring(11)}"></p>
+                        <p class="col-2 text-center text-white bg-secondary">Time of auction start:</p>
+                        <p class="col-3 text-center text-warning bg-secondary"
+                           th:text="${auction.dateTimeOfAuctionEnd.toString().substring(11)}"></p>
                     </div>
                 </div>
                 <br>
                 <div class="col text-center" th:if="${auction.dateTimeOfAuctionEnd == null}">
                     <form action="/users/userAuctions/terminateAuction">
                         <label for="terminateAuction"></label>
-                        <select name="auctionID" id = "terminateAuction" required>
+                        <select name="auctionID" id="terminateAuction" required>
                             <option selected disabled>Terminate auction?</option>
                             <option th:value="${auction.auctionID}" th:text="Terminate"></option>
                         </select>
@@ -77,9 +93,44 @@
                     </form>
                 </div>
                 <br>
+                <div class="container text-center" th:if="${auction.buyer != null}">
+                    <h3 class="text-info">Buyer information</h3>
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-4 border border-info">
+                            <p>Name</p>
+                        </div>
+                        <div class="col-4 border border-info">
+                            <p th:text="|${auction.buyer.firstName} ${auction.buyer.lastName}|"></p>
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-4 border border-info">
+                            <p>Email and phone</p>
+                        </div>
+                        <div class="col-4 border border-info">
+                            <p th:text="|Email: ${auction.buyer.email} Phone:${auction.buyer.phoneNumber}|"></p>
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-4 border border-info">
+                            <p>Address</p>
+                        </div>
+                        <div class="col-4 border border-info">
+                            <p th:text="|${auction.buyer.address.country}, ${auction.buyer.address.city},
+                                ${auction.buyer.address.address}|"></p>
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                </div>
+                <br>
                 <div th:if="${not auction.sellerLeftFeedback}">
                     <h4 class="text-center text-info">Leave feedback</h4>
-                    <form class="container" action="/users/auctions/leaveFeedback", method="post">
+                    <form class="container" action="/users/auctions/leaveFeedback" , method="post">
                         <input type="text" hidden name="auctionID" th:value="${auction.auctionID}">
                         <div class="row">
                             <div class="col-3"></div>
@@ -89,7 +140,8 @@
                         <div class="row">
                             <div class="col-3"></div>
                             <select class="text-center col-6" name="feedbackGrade" id="feedbackGrade">
-                                <option th:each="grade : ${feedbackGrades}" th:text="${grade}" th:value="${grade}"></option>
+                                <option th:each="grade : ${feedbackGrades}" th:text="${grade}"
+                                        th:value="${grade}"></option>
                             </select>
                             <div class="col-3"></div>
                         </div>
@@ -114,7 +166,8 @@
                     </form>
                 </div>
                 <div th:if="${auction.buyerLeftFeedback}">
-                    <p class="text-center text-warning display-4">Buyer has left a feedback, check it out at your Feedbacks section</p>
+                    <p class="text-center text-warning display-4">Buyer has left a feedback, check it out at your
+                        Feedbacks section</p>
                 </div>
                 <br>
                 <div class="container">
@@ -124,7 +177,9 @@
                             <h5 class="text-center text-success">Bids</h5>
                             <div th:each="bid : ${auction.bidders}">
                                 <div class="col text-center">
-                                    <p class="text-white  btn btn-success float-none w-25" th:if="${not auction.bidders.isEmpty()}" th:text="|${bid.amount}, by user: ${bid.bidder.username}|"></p>
+                                    <p class="text-white  btn btn-success float-none w-25"
+                                       th:if="${not auction.bidders.isEmpty()}"
+                                       th:text="|${bid.amount}, by user: ${bid.bidder.username}|"></p>
                                 </div>
                             </div>
                         </div>

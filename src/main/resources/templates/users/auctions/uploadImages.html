@@ -27,10 +27,12 @@
                 <div class="col-md-6 mx-auto">
                     <div class="card border-secondary">
                         <div class="card-header">
-                            <h3 class="mb-0 my-2" th:if="${auction != null}" th:text="|Upload images for: ${auction.title}|"></h3>
+                            <h3 class="mb-0 my-2" th:if="${auction != null}"
+                                th:text="|Upload images for: ${auction.title}|"></h3>
                         </div>
                         <div class="card-body">
-                            <form th:action="@{'/users/submitAuction/uploadImages/auctionID=' +  ${auction.auctionID}}" class="form" role="form" method="post" enctype="multipart/form-data">
+                            <form th:action="@{'/users/submitAuction/uploadImages/auctionID=' +  ${auction.auctionID}}"
+                                  class="form" role="form" method="post" enctype="multipart/form-data">
                                 <div>
                                     <label for="imageA">Primary image A</label>
                                     <input type="file" class="form-control" id="imageA" name="imageA" required>
@@ -60,6 +62,6 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
 </body>
 </html>

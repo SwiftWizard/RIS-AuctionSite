@@ -1,16 +1,14 @@
 package com.ris.ris.project.controller;
 
 import com.ris.ris.project.model.*;
-import com.ris.ris.project.repository.AuctionRepository;
-import com.ris.ris.project.repository.BidRepository;
-import com.ris.ris.project.repository.FeedbackRepository;
-import com.ris.ris.project.repository.UserRepository;
+import com.ris.ris.project.repository.*;
 import com.ris.ris.project.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import javax.servlet.http.HttpSession;
@@ -71,7 +69,7 @@ public class UserController {
         ar.save(auction);
         ur.save(user);
 
-        return "/users/auctions/userAuctions";
+        return "redirect:/users/userAuctions";
     }
 
     @RequestMapping("/auctions/boughtItems")
@@ -126,7 +124,7 @@ public class UserController {
     public String uploadAuctionImages(@PathVariable Long auctionID, @RequestParam("imageA") MultipartFile imgA, @RequestParam("imageA") MultipartFile imgB, @RequestParam("imageA") MultipartFile imgC,  Model model){
         model.addAttribute("user", session.getAttribute("user"));
 
-        imageService.saveImageFilesForAuctions(auctionID, imgA, imgB, imgC);
+        imageService.saveImageFilesForAuction(auctionID, imgA, imgB, imgC);
 
         //Activate auction
         Auction auction = ar.findById(auctionID).get();
@@ -148,7 +146,7 @@ public class UserController {
     }
 
     @PostMapping("/auctions/placeBid")
-    public String placeBid(Long auctionID, String amount, Model model){
+    public String placeBid(Long auctionID, String amount, RedirectAttributes model){
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
 
@@ -156,8 +154,8 @@ public class UserController {
 
         if(auction.getSeller().getUserID().equals(user.getUserID())){ //TODO override equals in user
             //User in session and user seller cannot be the same
-            model.addAttribute("message", "You cannot bid on your own auction! ... Play nice.");
-            return "/users/auctions/bids/userBids";
+            model.addFlashAttribute("message", "You cannot bid on your own auction! ... Play nice.");
+            return "redirect:/users/userBids";
         }
 
         float amountFloat;
@@ -166,14 +164,14 @@ public class UserController {
             amountFloat = Float.parseFloat(amount);
         }catch(Exception e){
             String message = String.format("Illegal entered value... => %s <= is not a valid number.", amount);
-            model.addAttribute("message", message);
-            return "/users/auctions/bids/userBids";
+            model.addFlashAttribute("message", message);
+            return "redirect:/users/userBids";
         }
 
         if(auction.getBidders().isEmpty()){
             if(auction.getInitialPrice() > amountFloat){
-                model.addAttribute("message", "You need to bid higher than the initial price");
-                return "/users/auctions/bids/userBids";
+                model.addFlashAttribute("message", "You need to bid higher than the initial price");
+                return "redirect:/users/userBids";
             }
             Bid bid = new Bid();
             bid.setAmount(amountFloat);
@@ -186,8 +184,8 @@ public class UserController {
             auction.addBid(bid);
             ar.save(auction);
 
-            model.addAttribute("message", "Bid successfully placed");
-            return "/users/auctions/bids/userBids";
+            model.addFlashAttribute("message", "Bid successfully placed");
+            return "redirect:/users/userBids";
         }else{
             //Bids exist in this auction
             Bid currentMaxBid = auction.getBidders().first();
@@ -203,11 +201,11 @@ public class UserController {
                 auction.addBid(bid);
                 ar.save(auction);
 
-                model.addAttribute("message", "Bid successfully placed");
-                return "/users/auctions/bids/userBids";
+                model.addFlashAttribute("message", "Bid successfully placed");
+                return "redirect:/users/userBids";
             }else{
-                model.addAttribute("message","Your bid needs to be higher than the current max bid.");
-                return "/users/auctions/bids/userBids";
+                model.addFlashAttribute("message","Your bid needs to be higher than the current max bid.");
+                return "redirect:/users/userBids";
             }
         }
     }

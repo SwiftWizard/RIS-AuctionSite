@@ -14,63 +14,53 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
     <style>
-        .chat
-        {
+        .chat {
             list-style: none;
             margin: 0;
             padding: 0;
         }
 
-        .chat li
-        {
+        .chat li {
             margin-bottom: 10px;
             padding-bottom: 5px;
             border-bottom: 1px dotted #B3A9A9;
         }
 
-        .chat li.left .chat-body
-        {
+        .chat li.left .chat-body {
             margin-left: 60px;
         }
 
-        .chat li.right .chat-body
-        {
+        .chat li.right .chat-body {
             margin-right: 60px;
         }
 
 
-        .chat li .chat-body p
-        {
+        .chat li .chat-body p {
             margin: 0;
             color: #777777;
         }
 
-        .panel .slidedown .glyphicon, .chat .glyphicon
-        {
+        .panel .slidedown .glyphicon, .chat .glyphicon {
             margin-right: 5px;
         }
 
-        .panel-body
-        {
+        .panel-body {
             overflow-y: scroll;
             height: 250px;
         }
 
-        ::-webkit-scrollbar-track
-        {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             background-color: #F5F5F5;
         }
 
-        ::-webkit-scrollbar
-        {
+        ::-webkit-scrollbar {
             width: 12px;
             background-color: #F5F5F5;
         }
 
-        ::-webkit-scrollbar-thumb
-        {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        ::-webkit-scrollbar-thumb {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
             background-color: #555;
         }
     </style>
@@ -80,60 +70,75 @@
 <div th:replace="/includes/navigation :: navigation"></div>
 <br>
 <br>
-
+<br>
+<h2 class="text-center text-info"
+    th:text="|Send message to ${auction.seller.username} about auction ${auction.title}|"></h2>
+<br>
 <div style="margin-top:30px">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="panel panel-primary">
-                        <div class="panel-body">
-                            <ul class="chat" th:each="message : ${messages}">
-                                <li class="left clearfix" th:if="${message.sender.userID.equals(user.userID)}">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="panel panel-primary bg-light">
+                    <div class="panel-body">
+                        <ul class="chat" th:each="message : ${messages}">
+                            <li class="left clearfix" th:if="${message.sender.userID.equals(user.userID)}">
                                     <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle">
+                                        <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar"
+                                             class="img-circle">
                                     </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font"th:text="${user.username}">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time" th:text="${message.dateTimeOfMessageSent}"></span>12 mins ago</small>
-                                        </div>
-                                        <p th:text="${message.message}">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                            dolor, quis ullamcorper ligula sodales.
-                                        </p>
+                                <div class="chat-body clearfix">
+                                    <div class="header">
+                                        <strong class="primary-font" th:text="${user.username}">Jack Sparrow</strong>
+                                        <small class="pull-right text-muted">
+                                            <span class="glyphicon glyphicon-time"
+                                                  th:text="${message.dateTimeOfMessageSent}"></span>12 mins ago</small>
                                     </div>
-                                </li>
-                                <li class="right clearfix" th:if="${message.receiver.userID.equals(auction.seller)}">
+                                    <p th:text="${message.message}">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum
+                                        ornare
+                                        dolor, quis ullamcorper ligula sodales.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="right clearfix" th:if="${message.receiver.userID.equals(auction.seller)}">
                                     <span class="chat-img pull-right">
-                                        <img src="http://placehold.it/50/FA6F57/fff&amp;text=ME" alt="User Avatar" class="img-circle">
+                                        <img src="http://placehold.it/50/FA6F57/fff&amp;text=ME" alt="User Avatar"
+                                             class="img-circle">
                                     </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                            dolor, quis ullamcorper ligula sodales.
-                                        </p>
+                                <div class="chat-body clearfix">
+                                    <div class="header">
+                                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins
+                                            ago</small>
+                                        <strong class="pull-right primary-font">Bhaumik Patel</strong>
                                     </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="panel-footer">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum
+                                        ornare
+                                        dolor, quis ullamcorper ligula sodales.
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+<!--                        th:action="@{/users/messages/doSendMessage?sender={sender}&reciver={receiver}&auction=${auction}(sender=${user.userID},receiver)"-->
+                        <form method="post">
                             <div class="input-group">
-                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here...">
+                                <input name="message" id="btn-input" type="text" class="form-control input-sm"
+                                       placeholder="Type your message here...">
                                 <span class="input-group-btn">
-                            <button class="btn btn-warning btn-sm" id="btn-chat">
-                                Send</button>
-                        </span>
+                                    <input type="submit" class="btn btn-warning btn-sm" id="btn-chat" value="Send"></input>
+                                </span>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
+            <div class="col-md-3"></div>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

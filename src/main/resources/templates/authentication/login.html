@@ -5,7 +5,8 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
@@ -25,31 +26,32 @@
                             <p th:text="${loginError}" class="mb-0 my-2 text-danger"></p>
                         </div>
                         <div class="card-body">
-                            <form class="form" role="form" autocomplete="off" method = "post">
+                            <form class="form" role="form" autocomplete="off" method="post">
                                 <div class="form-group">
                                     <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="Your username">
+                                    <input type="text" class="form-control" id="username" name="username"
+                                           placeholder="Your username">
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Your password">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                           placeholder="Your password">
                                 </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-success btn-lg float-right" value="Log in">
+                                    <a href="/register/newUser" class="btn btn-warning btn-lg float-left">Register</a>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-success btn-lg float-right" value="Log in">
-                            <a href="/register/newUser" class="btn btn-warning btn-lg float-left">Register</a>
-                        </div>
-                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--/row-->
+            <!--/row-->
 
+        </div>
+        <!--/col-->
     </div>
-    <!--/col-->
-</div>
-<!--/row-->
+    <!--/row-->
 </div>
 <!--/container-->
 </body>

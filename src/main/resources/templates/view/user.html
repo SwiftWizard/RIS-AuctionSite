@@ -36,7 +36,8 @@
             <br>
             <br>
             <h4 class="text-center text-info">User feedbacks</h4>
-            <p class="text-center text-danger"th:if="${userView.feedbacks.isEmpty()}" th:text="|User does not have feedbacks yet|"></p>
+            <p class="text-center text-danger" th:if="${userView.feedbacks.isEmpty()}"
+               th:text="|User does not have feedbacks yet|"></p>
             <div class="container">
                 <div class="row border border-danger mb-3" th:each="feedback : ${userView.feedbacks}">
                     <div class="col-2"></div>

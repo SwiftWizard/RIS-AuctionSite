@@ -9,17 +9,26 @@
 	<field name="title" class="java.lang.String"/>
 	<field name="category" class="java.lang.String"/>
 	<field name="description" class="java.lang.String"/>
-	<field name="maxBid" class="java.lang.Float"/>
-	<variable name="auctionCount" class="java.lang.Integer" calculation="Count"/>
+	<field name="maxBid" class="java.lang.Double"/>
+	<variable name="auctionCount" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{title}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="109" splitType="Stretch">
 			<staticText>
-				<reportElement x="190" y="36" width="179" height="30" uuid="90c3fcbc-be21-40ff-9a0e-794b5cf1e884"/>
+				<reportElement x="190" y="36" width="179" height="30" forecolor="#D43533" uuid="90c3fcbc-be21-40ff-9a0e-794b5cf1e884"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
 				<text><![CDATA[Active auctions report]]></text>
 			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="0" y="0" width="100" height="13" uuid="6cc4e127-fe61-447c-8bf7-fe6f8aebcd7d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -28,43 +37,55 @@
 	<columnHeader>
 		<band height="68" splitType="Stretch">
 			<staticText>
-				<reportElement x="80" y="0" width="100" height="30" uuid="5d97a3ae-e000-411a-bd98-656c52c42dc4"/>
+				<reportElement mode="Opaque" x="30" y="38" width="120" height="30" forecolor="#000000" backcolor="#8DD99F" uuid="5d97a3ae-e000-411a-bd98-656c52c42dc4"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
 				<text><![CDATA[Title]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="180" y="0" width="100" height="30" uuid="a4d8551c-591a-4051-9788-1ce4c48a4f79"/>
+				<reportElement mode="Opaque" x="150" y="38" width="130" height="30" forecolor="#000000" backcolor="#8DD99F" uuid="a4d8551c-591a-4051-9788-1ce4c48a4f79"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
 				<text><![CDATA[Category]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="0" width="100" height="30" uuid="6a0b6390-d889-4dd0-89be-64f0f05a2a95"/>
+				<reportElement mode="Opaque" x="280" y="38" width="130" height="30" forecolor="#000000" backcolor="#8DD99F" uuid="6a0b6390-d889-4dd0-89be-64f0f05a2a95"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
 				<text><![CDATA[Description]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="0" width="100" height="30" uuid="defabcef-bc54-4858-a8e0-9275be8d5d0a"/>
+				<reportElement mode="Opaque" x="410" y="38" width="120" height="30" forecolor="#000000" backcolor="#8DD99F" uuid="defabcef-bc54-4858-a8e0-9275be8d5d0a"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
 				<text><![CDATA[Current max bid]]></text>
 			</staticText>
 		</band>
@@ -72,68 +93,93 @@
 	<detail>
 		<band height="125" splitType="Stretch">
 			<textField>
-				<reportElement x="180" y="0" width="100" height="30" uuid="f5bbe1ce-d2a0-4284-b3fe-31d4b5c6c13c"/>
+				<reportElement mode="Opaque" x="150" y="0" width="130" height="39" isRemoveLineWhenBlank="true" backcolor="#E0FFED" uuid="f5bbe1ce-d2a0-4284-b3fe-31d4b5c6c13c"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font size="11"/>
+					<paragraph lineSpacingSize="0.0"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{category}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="80" y="1" width="100" height="30" uuid="bcb4c636-c37d-4d43-8598-352651418454"/>
+				<reportElement mode="Opaque" x="30" y="0" width="120" height="39" isRemoveLineWhenBlank="true" backcolor="#E0FFED" uuid="bcb4c636-c37d-4d43-8598-352651418454"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font size="11"/>
+					<paragraph lineSpacingSize="0.0"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="280" y="1" width="100" height="30" uuid="b18b48fb-f4d0-4762-90ef-6410f5709b4c"/>
+				<reportElement mode="Opaque" x="280" y="0" width="130" height="39" isRemoveLineWhenBlank="true" backcolor="#E0FFED" uuid="b18b48fb-f4d0-4762-90ef-6410f5709b4c"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font size="11"/>
+					<paragraph lineSpacingSize="0.0"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="1" width="100" height="30" uuid="de52d0f2-9b94-4dd1-a092-a4707de12eb4"/>
+				<reportElement mode="Opaque" x="410" y="0" width="120" height="39" isRemoveLineWhenBlank="true" backcolor="#E0FFED" uuid="de52d0f2-9b94-4dd1-a092-a4707de12eb4"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font size="11"/>
+					<paragraph lineSpacingSize="0.0"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{maxBid}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="74" splitType="Stretch"/>
+		<band height="74" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="310" y="44" width="100" height="30" forecolor="#1D7548" uuid="5291f1fc-51fa-491f-87bf-b2529db05842"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{auctionCount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="210" y="44" width="100" height="30" forecolor="#1D7548" uuid="696d9bd5-f49b-49c9-a28d-5f2eaf0ee9b6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Auction count: ]]></text>
+			</staticText>
+		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch">
+		<band height="114" splitType="Stretch">
 			<textField>
-				<reportElement x="230" y="6" width="100" height="30" uuid="1cf5e259-f52d-44b5-bbf8-4ec098e7833a"/>
+				<reportElement x="230" y="34" width="100" height="30" forecolor="#175980" uuid="1cf5e259-f52d-44b5-bbf8-4ec098e7833a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch">
-			<textField>
-				<reportElement x="280" y="0" width="100" height="30" uuid="52c480ec-2e48-4e85-ba82-cce84b587199"/>
-				<textFieldExpression><![CDATA[$P{auctionCount}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="180" y="0" width="100" height="30" uuid="696d9bd5-f49b-49c9-a28d-5f2eaf0ee9b6"/>
-				<text><![CDATA[Auction count:]]></text>
-			</staticText>
-		</band>
+		<band height="42" splitType="Stretch"/>
 	</summary>
 </jasperReport>

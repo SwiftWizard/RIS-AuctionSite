@@ -29,12 +29,15 @@
         <div class="col-12">
             <h2 class="text-center text-info font-weight-bold">Welcome to the Auctioneer website</h2>
             <h5 class="text-center text-info">Your preferred auction site</h5>
+            <img src="bdd.jpg"></img>
         </div>
     </div>
     <div class="row mt-5">
-        <a th:href="@{/view/auctions/auction(id=${auction.auctionID})}" class="col-4 bg-light border border-info" th:each="auction : ${newAuctions}">
+        <a th:href="@{/view/auctions/auction(id=${auction.auctionID})}" class="col-4 bg-light border border-info"
+           th:each="auction : ${newAuctions}">
             <p class="text-center text-info" th:text="${auction.title}"></p>
-            <img class="mx-auto d-block img" th:src="@{'/images/auction?auctionID=' + @{auction.auctionID} +'&image=A'}" alt="Image not available">
+            <img class="mx-auto d-block img" th:src="@{'/images/auction?auctionID=' + @{auction.auctionID} +'&image=A'}"
+                 alt="Image not available">
         </a>
     </div>
 </div>

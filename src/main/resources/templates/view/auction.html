@@ -26,8 +26,10 @@
     <div class="border border-info bg-light">
         <h2 class="text-center text-info font-weight-bold" th:text="${auction.title}">Auction name</h2>
         <div th:if="${auction.seller} != null"> <!--This field must exist-->
-            <h5 class="text-center text-success" th:if="${not auction.bidders.isEmpty()}" th:text="|${auction.bidders.first().amount} ${auction.currency}|">Price</h5>
-            <p class="text-center text-success" th:text="|Initial price: ${auction.initialPrice} ${auction.currency}|"></p>
+            <h5 class="text-center text-success" th:if="${not auction.bidders.isEmpty()}"
+                th:text="|${auction.bidders.first().amount} ${auction.currency}|">Price</h5>
+            <p class="text-center text-success"
+               th:text="|Initial price: ${auction.initialPrice} ${auction.currency}|"></p>
             <br>
             <div class="fakeimg">Fake Images</div>
             <br>
@@ -49,24 +51,31 @@
             <p class="text-center" th:text="${auction.description}"></p>
             <h5 class="text-center text-success">Seller</h5>
             <div class="col text-center">
-                <a class="text-center btn btn-success float-none w-25" th:href="@{/view/user(id=${auction.seller.userID})}" th:text="${auction.seller.username}"></a>
+                <a class="text-center btn btn-success float-none w-25"
+                   th:href="@{/view/user(id=${auction.seller.userID})}" th:text="${auction.seller.username}"></a>
             </div>
             <br>
             <div sec:authorize="isFullyAuthenticated()">
                 <div class="col text-center">
-                    <a class="btn btn-info float-none w-25 text-dark" th:href="@{/users/messages/sendMessage?(auctionID=${auction.auctionID})}">Message seller</a>
+                    <a class="btn btn-info float-none w-25 text-dark"
+                       th:href="@{/users/messages/sendMessage?(auctionID=${auction.auctionID})}">Message seller</a>
                 </div>
             </div>
             <br>
-            <p class="text-center" th:text="|From Country: ${auction.seller.address.country} , City: ${auction.seller.address.city}|"></p>
+            <p class="text-center"
+               th:text="|From Country: ${auction.seller.address.country} , City: ${auction.seller.address.city}|"></p>
             <div class="row justify-content-center">
                 <div class="col-1"></div>
                 <div class="col-10 row justify-content-center">
                     <p class="col-2 text-center text-white bg-secondary">Date of auction start:</p>
-                    <p class="col-3 text-center text-warning bg-secondary" th:if="${auction.dateTimeOfAuctionStart != null}" th:text="${auction.dateTimeOfAuctionStart.toString().substring(0,10)}"></p>
+                    <p class="col-3 text-center text-warning bg-secondary"
+                       th:if="${auction.dateTimeOfAuctionStart != null}"
+                       th:text="${auction.dateTimeOfAuctionStart.toString().substring(0,10)}"></p>
                     <p class="col-2 bg-info"></p>
-                    <p class="col-2 text-center text-white bg-secondary" >Time of auction start:</p>
-                    <p class="col-3 text-center text-warning bg-secondary" th:if="${auction.dateTimeOfAuctionStart != null}" th:text="${auction.dateTimeOfAuctionStart.toString().substring(11)}"></p>
+                    <p class="col-2 text-center text-white bg-secondary">Time of auction start:</p>
+                    <p class="col-3 text-center text-warning bg-secondary"
+                       th:if="${auction.dateTimeOfAuctionStart != null}"
+                       th:text="${auction.dateTimeOfAuctionStart.toString().substring(11)}"></p>
                 </div>
                 <div class="col-1"></div>
             </div>
@@ -78,7 +87,9 @@
                         <h5 class="text-center text-success">Bids</h5>
                         <div th:each="bid : ${auction.bidders}">
                             <div class="col text-center">
-                                <p class="text-white  btn btn-success float-none w-25" th:if="${not auction.bidders.isEmpty()}" th:text="|${bid.amount}, by user: ${bid.bidder.username}|"></p>
+                                <p class="text-white  btn btn-success float-none w-25"
+                                   th:if="${not auction.bidders.isEmpty()}"
+                                   th:text="|${bid.amount}, by user: ${bid.bidder.username}|"></p>
                             </div>
                         </div>
                     </div>

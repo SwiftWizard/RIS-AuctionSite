@@ -19,12 +19,14 @@
                     <a class="nav-link text-info" href="/about">About</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item text-success">
-                    <a class="nav-link text-info" href="/users/userProfile" th:if="${user != null}" th:text="|${user.firstName}`s profile|">Your profile</a>
+                    <a class="nav-link text-info" href="/users/userProfile" th:if="${user != null}"
+                       th:text="|${user.firstName}`s profile|">Your profile</a>
                 </li>
             </ul>
         </div>
         <div class="mx-auto order-0">
-            <a class="navbar-brand mx-auto text-info font-weight-bold text-xl-center" href="/view/auctions/all"> Auctions </a>
+            <a class="navbar-brand mx-auto text-info font-weight-bold text-xl-center" href="/view/auctions/all">
+                Auctions </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,10 +37,10 @@
                 <li sec:authorize="isAnonymous()" class="nav-item">
                     <a class="nav-link text-warning" href="/register/newUser">Register</a>
                 </li>
-                <li sec:authorize="isAnonymous()"class="nav-item">
+                <li sec:authorize="isAnonymous()" class="nav-item">
                     <a class="nav-link text-success" href="/authentication/login">Login</a>
                 </li>
-                <li sec:authorize="isAuthenticated()"class="nav-item">
+                <li sec:authorize="isAuthenticated()" class="nav-item">
                     <a class="nav-link text-danger" href="/authentication/logout">Logout</a>
                 </li>
             </ul>
