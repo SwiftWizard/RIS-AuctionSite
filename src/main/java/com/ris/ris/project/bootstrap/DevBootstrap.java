@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+//@Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     AuctionRepository ar;

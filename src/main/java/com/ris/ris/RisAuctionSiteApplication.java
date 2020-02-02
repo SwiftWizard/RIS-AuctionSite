@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 
 @SpringBootApplication()
 public class RisAuctionSiteApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(RisAuctionSiteApplication.class, args);
     }
